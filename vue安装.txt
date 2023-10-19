@@ -1,0 +1,51 @@
+1 安装node.js
+    检查node.js
+    ~$ node -v
+
+2 安装npm
+  ~$brew install npm
+  如果安装失败，可以通过brew doctor命令查看解决办法
+  国内可以通过npm install -g cnpm --registry=https://registry.npm.taobao.org
+
+3 全局安装vue-cli
+  ~$npm install -g  @vue/cli
+  ~$vue -v 查看版本
+
+4 创建vue项目
+~$ vue create vue01
+选择vue2 配置文件使用默认的
+
+5 启动，编译
+cd my-project
+     npm install
+     npm run dev
+
+6 使用vue ui管理界面进行 创建管理
+
+7 demo实例入口函数：
+通过
+-- 引入vue-min.js
+-- 写js，写html
+new vue({
+    el:'#vue_det',
+    data:{
+        site:"菜鸟教程",
+        url:"www.runoob.com",
+        alexa:"10000"
+    },
+    method:{
+        details: function() {
+            return this.site + "学的不仅是技术，更是梦想";
+        }
+    }
+})
+
+<div id="vue_det">
+		<h1>site : {{site}}</h1>
+		<h1>url : {{url}}</h1>
+		<h1>{{details()}}</h1>
+</div>
+
+8 Vue 项目打包
+打包 Vue 项目使用以下命令：
+npm run build
