@@ -19,6 +19,7 @@
 cd my-project
      npm install
      npm run dev
+     npm run serve
 
 6 使用vue ui管理界面进行 创建管理
 

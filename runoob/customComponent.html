@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>custom Component</title>
+    <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js?v=1.0"></script>
+
+</head>
+<body>
+<div id="app">
+    <runoob></runoob>
+
+    <p>{{total}}</p>
+    <!-- 这段代码的意义是：
+    1 定义了一个自己的组件，默认返回了自己的成员量counter；
+    2 组件里面监听了onclick，当点击时候触发了自己的方法incrementHandler方法，讓自己counter++；
+    3 執行完自己的counter++後，触发了自定义的increment方法--vue容器的方法 incrementTotal;
+    4 incrementTotal讓vue容器的成员量total++；
+    5 显示total的值到标签p
+     -->
+    <button-counter v-on:increment="incrementTotal"></button-counter>
+    <button-counter v-on:increment="incrementTotal"></button-counter>
+    <button-counter v-on:increment="incrementTotal"></button-counter>
+
+    <zl-input v-model="num"></zl-input>
+    <p>输入的数字为:{{num}}</p>
+
+</div>
+<script>
+    Vue.component('runoob', {
+        template:'<input type="text" value="hello runoob">'
+    });
+
+    Vue.component('button-counter', {
+        template: '<button v-on:click="incrementHandler">{{counter}}</button>',
+        data: function () {
+            alert(1);
+            return {
+                counter: 0
+            }
+        },
+
+        methods: {
+            incrementHandler: function () {
+                alert(2)
+                this.counter += 1
+                this.$emit('increment');
+            }
+        },
+    });
+
+    Vue.component('zl-input',  {
+        //这里使用了``  是因为标签里面有了''， 如果用'' 就会出现解析问题
+        template:`<p><input  ref="input"   :value="value"  @input="$emit('input', $event.target.value)"  ></p>`,
+        data: function () {
+        },
+        methods: {},
+
+        props:['value'] //标签中的属性名为value的一个属性
+    });
+
+    new Vue({
+        el:'#app',
+        data:{
+            total:0,
+            num:100
+        },
+
+        methods: {
+            incrementTotal: function () {
+                alert(3)
+                this.total += 1;
+            }
+        }
+    });
+
+</script>
+
+</body>
+</html>

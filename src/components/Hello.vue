@@ -32,9 +32,11 @@
 
 <script>
 export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String
+  name: 'helloWorld',
+  data () {
+    return {
+      msg: '欢迎来到菜鸟教程！'
+    }
   }
 }
 </script>

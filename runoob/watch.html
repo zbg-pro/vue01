@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue-watch</title>
+    <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js?v=1.0"></script>
+</head>
+<body>
+<div id="app">
+    km：<input type="text" v-model="kilometers">
+    m：<input type="text" v-model="meters">
+</div>
+
+
+<div>
+    <p id="info"></p>
+</div>
+</body>
+
+<script>
+
+    var vm = new Vue({
+        el:'#app',
+        data :{
+            kilometers:0,
+            meters:0,
+        },
+
+        methods:{},
+        computed:{},
+
+        watch: {
+            kilometers: function (val) {
+                this.kilometers = val;
+                this.meters = this.kilometers*1000;
+            },
+            meters: function (val) {
+                this.meters = val;
+                this.kilometers = this.meters/1000;
+            }
+        }
+
+    });
+
+    vm.$watch('kilometers', function (newVal, oldVal) {
+        // 这个回调将在 vm.kilometers 改变后调用
+        document.getElementById ("info").innerHTML = "修改前值为: " + oldVal + "，修改后值为: " + newVal;
+    });
+
+</script>
+
+</html>
