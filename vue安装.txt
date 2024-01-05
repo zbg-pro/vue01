@@ -50,3 +50,19 @@ new vue({
 8 Vue 项目打包
 打包 Vue 项目使用以下命令：
 npm run build
+要运行打包后的文件，你可以使用一个静态文件服务器，如 serve。serve 是一个简单的命令行工具，用于提供静态文件。你可以使用以下步骤：
+
+在终端中运行以下命令安装 serve：
+
+bash
+Copy code
+npm install -g serve
+确保你位于项目根目录，然后运行以下命令启动静态服务器：
+
+bash
+Copy code
+serve -s ./dist
+打开浏览器，并访问服务器提供的 URL，通常是 http://localhost:5000。
+
+请注意，上述步骤中的端口号 5000 是 serve 默认使用的端口。你可以在运行 serve 命令时通过 -p 选项指定不同的端口号，例如 serve -s ./dist -p 5173。
+

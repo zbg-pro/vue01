@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Vue 测试实例 - 菜鸟教程(runoob.com)</title>
+    <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js?v=1.0"></script>
+    <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js?v=1.0"></script>
+</head>
+<body>
+<div id="app">
+    {{ info }}
+</div>
+<script type = "text/javascript">
+    axios.defaults.headers.common['Content-Type'] = 'application/json';
+    //axios.defaults.headers.common['Authorization'] = 'Bearer 121212';
+    //axios.defaults.headers.common['User-Agent'] = 'Your User Agent';
+
+    new Vue({
+        el: '#app',
+        data () {
+            return {
+                info: null
+            }
+        },
+        mounted () {
+
+            axios
+                .get('https://www.zbg.com/exchange/config/controller/website/marketcontroller/getByWebId', {
+                    headers: {
+                        //'Content-Type': 'application/json', // 设置请求内容类型为 JSON
+                        //'Authorization': 'Bearer 1231232', // 设置授权信息，例如使用 Bearer Token
+                        //'X-Requested-With': 'XMLHttpRequest', // 标识请求为 XMLHttpRequest
+                        //'User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'
+
+                    }
+                })
+                .then(response => (this.info = response))
+                .catch(function (error) { // 请求失败处理
+                    console.log(error);
+                });
+        }
+    })
+</script>
+</body>
+</html>

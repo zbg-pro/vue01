@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>router test</title>
+    <style>
+        ._active{
+            background-color : red;
+        }
+    </style>
+    <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+    <script src="https://cdn.staticfile.org/vue-router/2.7.0/vue-router.min.js"></script>
+
+
+</head>
+<body>
+
+<div id="app">
+    <h1>hello router!</h1>
+    <p>
+        <router-link to="/foo">Go To Foo</router-link>
+        <router-link to="/bar">Go TO Bar</router-link>
+    </p>
+    <router-view></router-view>
+
+    <hr>
+    <router-link to="/foo">Home</router-link>-->
+    <a href="hook.html">Home</a>
+
+    <br>
+    <!-- 使用 v-bind 的 JS 表达式 -->
+    <router-link v-bind:to="'/foo'">使用 v-bind 的 JS 表达式</router-link><br>
+
+    <!-- 不写 v-bind 也可以，就像绑定别的属性一样 -->
+    <router-link :to="'/foo'">不写 v-bind 也可以，就像绑定别的属性一样</router-link><br>
+
+    <!-- 命名的路由 -->
+    <router-link :to="{ name: 'foo', params: { userId: 123 }}">命名的路由</router-link><br>
+
+    <!-- 带查询参数，下面的结果为 /register?plan=private -->
+    <router-link :to="{ path: 'register', query: { plan: 'private' }}">Register</router-link>
+
+    <router-link :to="{ path: '/abc'}" replace>
+        设置 replace 属性的话，当点击时，会调用 router.replace() 而不是 router.push()，导航后不会留下 history 记录。
+    </router-link><br>
+
+    <router-link :to="{ path: 'relative/path'}" append>append</router-link><br>
+
+    <router-link to="/foo" tag="li">foo</router-link><br>
+    <!-- 渲染结果 -->
+    <li>foo</li>
+
+    <br>
+
+
+    <p>
+        <router-link v-bind:to = "{ path: '/route1'}" active-class = "_active">Router Link 1</router-link>
+        <router-link v-bind:to = "{ path: '/route2'}" >Router Link 2</router-link>
+    </p>
+
+
+</div>
+
+<script>
+
+    const  Foo = {template: '<div>foo text!</div>'};
+    const Bar = {template: '<div>bar text!</div>'};
+
+    const routes = [
+        {path: '/foo', component: Foo},
+        {path: '/bar', component: Bar}
+    ];
+
+    const router = new VueRouter({
+        routes:routes // （缩写）相当于 routes: routes
+    });
+
+
+    const app = new Vue({
+        el:'#app',
+        router:router
+    });
+
+
+</script>
+</body>
+</html>

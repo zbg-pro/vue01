@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>droplist</title>
+    <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js?v=1.0"></script>
+    <style>
+        /* 样式可以根据需要进行调整 */
+        .dropdown {
+            border: 1px solid #ccc;
+            max-height: 100px;
+            overflow-y: auto;
+            max-width: 150px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="app">
+    <input v-model="inputValue" @focus="showDropdown" @blur="hideDropdown" @change="handleChange" @input="filterOptions">
+
+    <div v-if="isDropdownVisible" class="dropdown">
+
+        <div v-for="option in filteredOptions" :key="option.id" @click="selectOption(option)">
+            {{option.label}}
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+new Vue({
+
+    el:'#app',
+    data: {
+        inputValue: '',
+        isDropdownVisible: false,
+        options:[
+            {id:1, label: 'option1'},
+            {id:2, label: 'option2'},
+            {id:3, label: 'option3'}
+        ],
+        filteredOptions:[
+            {id:1, label: 'option1'},
+            {id:2, label: 'option2'},
+            {id:3, label: 'option3'}
+        ]
+    },
+
+    methods: {
+        showDropdown: function () {
+            this.isDropdownVisible = true;
+        },
+        hideDropdown: function () {
+
+            //this.inputValue = tmp;
+
+            /*setTimeout(function () {
+                this.isDropdownVisible = false;
+            }, 1000);*/
+        },
+        filterOptions: function () {
+            // 根据输入框的值过滤选项
+            this.filteredOptions = this.options.filter(e =>
+                e.label.toLowerCase().includes(this.inputValue.toLowerCase()));
+        },
+        selectOption: function (option) {
+            this.inputValue = option.label;
+            this.isDropdownVisible = false;
+        },
+        handleChange: function () {
+            // 在这里可以处理选择变化的逻辑
+            var tmp = this.inputValue;
+
+            //设置input的值
+            //var tmp = ''
+            this.options.forEach(function(e) {
+                                if (tmp && e.label.toLowerCase() === tmp.toLowerCase()){
+                    this.inputValue = tmp;
+                }
+            });
+
+            //this.inputValue = tmp;
+
+        },
+
+    },
+
+    watch: {
+
+    }
+
+});
+
+
+</script>
+
+</body>
+</html>

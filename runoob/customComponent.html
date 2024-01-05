@@ -25,16 +25,24 @@
     <zl-input v-model="num"></zl-input>
     <p>输入的数字为:{{num}}</p>
 
+    <base-checkbox v-model="lovingVue"></base-checkbox>
+    <div v-show="lovingVue">
+        如果选择框打勾我就会显示。
+    </div>
+
+    <p>页面载入时，input 元素自动获取焦点：</p>
+    <input v-focus>
+
+
 </div>
 <script>
     Vue.component('runoob', {
         template:'<input type="text" value="hello runoob">'
     });
 
-    Vue.component('button-counter', {
+    Vue.component('buttonCounter', {
         template: '<button v-on:click="incrementHandler">{{counter}}</button>',
         data: function () {
-            alert(1);
             return {
                 counter: 0
             }
@@ -42,7 +50,6 @@
 
         methods: {
             incrementHandler: function () {
-                alert(2)
                 this.counter += 1
                 this.$emit('increment');
             }
@@ -59,16 +66,44 @@
         props:['value'] //标签中的属性名为value的一个属性
     });
 
+    Vue.component('base-checkbox', {
+
+        model: {
+            prop: 'checked',
+            event: 'change'  // onchange 事件
+        },
+        props: {
+            checked: Boolean
+        },
+
+        template: `
+    <input
+      type="checkbox"
+      v-bind:checked="checked"
+      v-on:change="$emit('change', $event.target.checked)"
+    >
+  `
+    })
+
+    // 注册一个全局自定义指令 v-focus
+    Vue.directive('focus', {
+        // 当绑定元素插入到 DOM 中。
+        inserted: function (el) {
+            // 聚焦元素
+            el.focus()
+        }
+    })
+
     new Vue({
         el:'#app',
         data:{
             total:0,
-            num:100
+            num:100,
+            lovingVue: true,
         },
 
         methods: {
             incrementTotal: function () {
-                alert(3)
                 this.total += 1;
             }
         }
